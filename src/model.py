@@ -172,3 +172,9 @@ def model(hparams, X, past=None, scope='model', reuse=False):
         logits = tf.reshape(logits, [batch, sequence, hparams.n_vocab])
         results['logits'] = logits
         return results
+
+def upmodel(hparams, X, past=None, scope='model', reuse=False):
+    mdl = model(hparams, X, past=past, scope=scope, reuse=reuse)
+    return mdl['present'], mdl['logits']
+
+
