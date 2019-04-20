@@ -12,8 +12,6 @@ from sample import sample_sequence
 
 def model_or_sample(batch_size):
 
-    print("Start token is {}".format(utility.get_start_token()))
-
     return sample_sequence(hparams=utility.get_hparams(),
                             length=utility.SAMPLE_LENGTH,
                             start_token=utility.get_start_token()[0],
