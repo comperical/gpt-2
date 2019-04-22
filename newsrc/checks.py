@@ -87,21 +87,20 @@ class CheckBiModelAugmTest:
 class CheckExplModelTest:
 
     def run_op(self, argmap):
-        import expl_model
+        import expl_modl
         import augmented
 
         # Okay, load the SAMPLES data from the augmented operation
         _, adata, aprobs, aloggs = utility.PickleData(augmented, 'sample').load()
 
         # Load the MODSAMPLE data from the expl_model operation
-        _, bdata, bprobs, bloggs = utility.PickleData(expl_model, 'modsample').load()
+        _, bdata, bprobs, bloggs = utility.PickleData(expl_modl, 'modsample').load()
 
         utility.assert_zero(adata - bdata)
         utility.assert_small(aprobs - bprobs)
         utility.assert_small(aloggs - bloggs)
 
         print("Success, explicit model operation produces exactly the same probabilities as sample operation")
-
 
 class CheckAugmentedTest:
 

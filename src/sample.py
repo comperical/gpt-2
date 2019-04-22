@@ -50,7 +50,10 @@ def sample_sequence(*, hparams, length, start_token=None, batch_size=None, conte
             next_outputs = step(hparams, prev[:, tf.newaxis], past=past)
             logits = next_outputs['logits'][:, -1, :]  / tf.to_float(temperature)
             logits = top_k_logits(logits, k=top_k)
-            samples = tf.multinomial(logits, num_samples=1, output_dtype=tf.int32)
+
+            # Important: need to have a seed= parameter here, or else small changes to the Graph configuratoin
+            # Will result in different seed information, and therefore different results.
+            samples = tf.multinomial(logits, num_samples=1, output_dtype=tf.int32, seed=1000)
             return [
                 tf.concat([past, next_outputs['presents']], axis=-2),
                 tf.squeeze(samples, axis=[1]),
